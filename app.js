@@ -10,7 +10,7 @@
 	    service: 'gmail',
 	    auth: {
 	        user: 'thecuatro@gmail.com',
-	        pass: 'fwhiv$123!'
+	        pass: '<password>'
 	    }
 	});
 
