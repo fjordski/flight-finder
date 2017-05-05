@@ -15,15 +15,13 @@
 	});
 
 	let mailOptions = {
-	    from: '"Fred Foo 👻" <thecuatro@gmail.com>', // sender address
-	    to: 'fordheacock@gmail.com', // list of receivers
-	    subject: 'Lets go somewhere, fam', // Subject line
-	    text: 'Hello world ?', // plain text body
-	    html: '<b>Hello world ?</b>' // html body
+	    from: '"Me, Myself, and I" <thecuatro@gmail.com>', 
+	    to: 'fordheacock@gmail.com', 
+	    subject: 'Lets go somewhere, fam', 
+	    text: 'Hello world ?',
+	    html: '<b>Hello world ?</b>'
 	};
-
-
-
+	
 	// START THE SERVER
 	console.log('STARTING THE SERVER');
 	console.log('-------------------------');
@@ -41,7 +39,6 @@
 	});
 
 	rl.question('Where do you want to go? ', (answer) => {
-	  // TODO: Log the answer in a database
 	  request({
 	    url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=2eGy6gQ8nhAbhNlh1vWd40j6hmi2rmrE&origin=BOS&destination=${answer}&departure_date=2017-08-25`,
 	    json: true
