@@ -22,8 +22,6 @@
         html: '<ul>' // html body
     };
 
-
-
     // START THE SERVER
     console.log('STARTING THE SERVER');
     console.log('-------------------------');
