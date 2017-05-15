@@ -4,7 +4,7 @@
     var app = express();
     var request = require('request');
     var readline = require('readline');
-    const nodemailer = require('nodemailer');
+    var nodemailer = require('nodemailer');
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',
