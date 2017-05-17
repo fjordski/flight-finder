@@ -59,7 +59,8 @@
                         mailOptions.html +=
 
                         `  	 
-                        The cheapest flight to ${answers[0]} costs $${body.results[i].fare.total_price} and leaves at ${body.results[i].itineraries[0].outbound.flights[0].departs_at}. There are/is ${body.results[i].itineraries[0].outbound.flights[0].booking_info.seats_remaining} seats remaining.	
+                        The cheapest flight to ${answers[0]} costs $${body.results[i].fare.total_price} and leaves at ${body.results[i].itineraries[0].outbound.flights[0].departs_at}. 
+			There are/is ${body.results[i].itineraries[0].outbound.flights[0].booking_info.seats_remaining} seats remaining.	
                         `;
                        
                     } else {
