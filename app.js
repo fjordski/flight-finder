@@ -22,8 +22,6 @@
         html: '' // html body
     };
 
-
-
     // START THE SERVER
     console.log('STARTING THE SERVER');
     console.log('-------------------------');
@@ -39,7 +37,6 @@
         input: process.stdin,
         output: process.stdout
     });
-
 
     rl.question('Please enter an airport code (ex. BNA) : ', (answer1) => {
     	rl.question('Please enter a departure date (YYYY-MM-DD) : ', (answer2) => {
