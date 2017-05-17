@@ -1,16 +1,13 @@
 {
   "dependencies": {
-    "body-parser": "latest",
     "readline": "latest",
     "dateformat": "~1.0.7-1.2.3",
-    "errorhandler": "latest",
     "express": "latest",
-    "express-session": "latest",
     "nodemailer": "^4.0.1",
     "request": "^2.81.0",
   },
-  "name": "sabrelab",
-  "subdomain": "sabrelab",
+  "name": "flightfinder",
+  "subdomain": "flightfinder",
   "scripts": {
     "start": "node app.js"
   },
