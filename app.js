@@ -55,9 +55,7 @@
             url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=<APIKEY>&origin=BNA&destination=${answers[0]}&departure_date=${answers[1]}`,
             json: true
         }, function(error, response, body) {
-
             if (!error && response.statusCode === 200) {
-
                 for (var i = 0; i < 1; i++) {
                     if (body.results[i].fare.total_price < 400) {	
 
