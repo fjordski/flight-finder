@@ -9,18 +9,20 @@
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: '<email>',
-            pass: '<password>'
+            user: '',
+            pass: ''
         }
     });
 
     let mailOptions = {
-        from: '"Fred Foo 👻" <email>', // sender address
-        to: '<email>', // list of receivers
+        from: '"Mr. Airplane Bot 🤖" <sender email>', // sender address
+        to: '', // list of receivers
         subject: 'Lets go somewhere, fam', // Subject line
         text: '', // plain text body
-        html: '<ul>' // html body
+        html: '' // html body
     };
+
+
 
     // START THE SERVER
     console.log('STARTING THE SERVER');
@@ -38,29 +40,50 @@
         output: process.stdout
     });
 
-    rl.question('Please enter an airport code on where you would like to fly (ex. BNA)', (answer) => {
-    	console.log("Thank you. Calculating flights to " + answer + ".");
-        request({
-            url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=<apikey>&origin=BNA&destination=${answer}&departure_date=2017-08-25`,
+
+    rl.question('Please enter an airport code (ex. BNA) : ', (answer1) => {
+    rl.question('Please enter a departure date (YYYY-MM-DD) : ', (answer2) => {
+	        var result = [answer1, answer2];
+	        custAnswers(result);
+	        rl.close();
+	    });
+	});
+
+    function custAnswers(answers){
+    	console.log(`calculating flights to ${answers[0]}`);
+    	request({
+            url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=2eGy6gQ8nhAbhNlh1vWd40j6hmi2rmrE&origin=BNA&destination=${answers[0]}&departure_date=${answers[1]}`,
             json: true
         }, function(error, response, body) {
 
             if (!error && response.statusCode === 200) {
-                for (var i = 0; i < 10; i++) {
-                    if (body.results[i].fare.total_price < 400) {	
-                        mailOptions.html += '<li>'+ body.results[i].fare.total_price+ '</li>';
-                    }
-                    	mailOptions.html += '</ul>';
-                }
 
-                transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        return console.log(error);
+                for (var i = 0; i < 1; i++) {
+                    if (body.results[i].fare.total_price < 400) {	
+
+                        mailOptions.html +=
+
+                        `  	 
+                        The cheapest flight to ${answers[0]} costs $${body.results[i].fare.total_price} and leaves at ${body.results[i].itineraries[0].outbound.flights[0].departs_at}. There are/is ${body.results[i].itineraries[0].outbound.flights[0].booking_info.seats_remaining} seats remaining.	
+                        `;
+                       
+                    } else {
+                    	console.log('that aint cheap, my man. look elsewhere for your vacay.')               	
                     }
-                    console.log('Message %s sent: %s', info.messageId, info.response);
-                });
+                }
+                console.log(mailOptions.html);
+
+                //***UN-COMMENT IF YOU WANT RESULTS E-MAILED TO YOU***
+                // transporter.sendMail(mailOptions, (error, info) => {
+                //     if (error) {
+                //         return console.log(error);
+                //     }
+                //     console.log('WE JUST HOOKED YOU UPPPPPP!! 🤖 %s sent: %s', info.messageId, info.response);
+                // });
+                
+            } else {
+            	console.log('looks like something broke, brother.');
             }
         });
-        rl.close();
-    });
+    }  
 })();
