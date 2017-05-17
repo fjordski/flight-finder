@@ -42,7 +42,7 @@
 
 
     rl.question('Please enter an airport code (ex. BNA) : ', (answer1) => {
-    rl.question('Please enter a departure date (YYYY-MM-DD) : ', (answer2) => {
+    	rl.question('Please enter a departure date (YYYY-MM-DD) : ', (answer2) => {
 	        var result = [answer1, answer2];
 	        custAnswers(result);
 	        rl.close();
