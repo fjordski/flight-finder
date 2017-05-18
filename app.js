@@ -3,20 +3,21 @@
     var express = require('express');
     var app = express();
     var request = require('request');
+    var dateFormat = require('dateformat');
     var readline = require('readline');
     var nodemailer = require('nodemailer');
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: '',
-            pass: ''
+            user: 'thecuatro@gmail.com',
+            pass: 'fwhiv$123!'
         }
     });
 
     let mailOptions = {
-        from: '"Mr. Airplane Bot 🤖" <sender email>', // sender address
-        to: '', // list of receivers
+        from: '"Mr. Airplane Bot 🤖" <thecuatro@gmail.com>', // sender address
+        to: 'fordheacock@gmail.com', // list of receivers
         subject: 'Lets go somewhere, fam', // Subject line
         text: '', // plain text body
         html: '' // html body
@@ -38,8 +39,9 @@
         output: process.stdout
     });
 
+
     rl.question('Please enter an airport code (ex. BNA) : ', (answer1) => {
-    	rl.question('Please enter a departure date (YYYY-MM-DD) : ', (answer2) => {
+    rl.question('Please enter a departure date (YYYY-MM-DD) : ', (answer2) => {
 	        var result = [answer1, answer2];
 	        custAnswers(result);
 	        rl.close();
@@ -49,18 +51,20 @@
     function custAnswers(answers){
     	console.log(`calculating flights to ${answers[0]}`);
     	request({
-            url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=<APIKEY>&origin=BNA&destination=${answers[0]}&departure_date=${answers[1]}`,
+            url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=2eGy6gQ8nhAbhNlh1vWd40j6hmi2rmrE&origin=BNA&destination=${answers[0]}&departure_date=${answers[1]}`,
             json: true
         }, function(error, response, body) {
+
             if (!error && response.statusCode === 200) {
+
                 for (var i = 0; i < 1; i++) {
                     if (body.results[i].fare.total_price < 400) {	
+                    	var depart = `${body.results[i].itineraries[0].outbound.flights[0].departs_at}`;
 
                         mailOptions.html +=
 
                         `  	 
-                        The cheapest flight to ${answers[0]} costs $${body.results[i].fare.total_price} and leaves at ${body.results[i].itineraries[0].outbound.flights[0].departs_at}. 
-			There are/is ${body.results[i].itineraries[0].outbound.flights[0].booking_info.seats_remaining} seats remaining.	
+                        The cheapest flight to ${answers[0]} costs $${body.results[i].fare.total_price} and leaves at ${dateFormat(depart, "dddd, mmmm dS, yyyy, h:MM:ss TT")}. There are/is ${body.results[i].itineraries[0].outbound.flights[0].booking_info.seats_remaining} seats remaining.	
                         `;
                        
                     } else {
@@ -76,10 +80,10 @@
                 //     }
                 //     console.log('WE JUST HOOKED YOU UPPPPPP!! 🤖 %s sent: %s', info.messageId, info.response);
                 // });
-                
+
             } else {
             	console.log('looks like something broke, brother.');
             }
         });
-    }  
+    }     
 })();
