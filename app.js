@@ -10,8 +10,8 @@
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'thecuatro@gmail.com',
-            pass: 'fwhiv$123!'
+            user: '',
+            pass: ''
         }
     });
 
@@ -51,7 +51,7 @@
     function custAnswers(answers){
     	console.log(`calculating flights to ${answers[0]}`);
     	request({
-            url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=2eGy6gQ8nhAbhNlh1vWd40j6hmi2rmrE&origin=BNA&destination=${answers[0]}&departure_date=${answers[1]}`,
+            url: `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=<APIKEY>&origin=BNA&destination=${answers[0]}&departure_date=${answers[1]}`,
             json: true
         }, function(error, response, body) {
 
