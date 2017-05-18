@@ -1,10 +1,11 @@
 {
   "dependencies": {
+    "body-parser": "latest",
     "readline": "latest",
     "dateformat": "~1.0.7-1.2.3",
     "express": "latest",
     "nodemailer": "^4.0.1",
-    "request": "^2.81.0",
+    "request": "^2.81.0"
   },
   "name": "flightfinder",
   "subdomain": "flightfinder",
